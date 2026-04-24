@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"os"
 
 	"github.com/aleksy37/gator-rss/internal/config"
 )
@@ -12,18 +12,17 @@ func main() {
 	if err != nil {
 		log.Fatalf("error reading config: %v", err)
 	}
-	fmt.Printf("Read Config: %+v\n", cfg)
-
-	err = cfg.SetUser("Aleksy")
-	if err != nil {
-		log.Fatalf("error setting user: %v", err)
+	s := state{cfg: &cfg}
+	c := commands{cmds : make(map[string]func(*state, command) error)}
+	c.register("login", handlerLogin)
+	userCommand := os.Args[1]
+	userArgs := os.Args[2:]
+	if len(userArgs) < 1 {
+		log.Fatalf("too few arguments provided, please provide at least 1")
 	}
-
-	cfg, err = config.Read()
+	err = c.run(&s, command{userCommand, userArgs})
 	if err != nil {
-		log.Fatalf("error reading config: %v", err)
+		log.Fatalf("error executing command: %v error: %v", userCommand, err)
 	}
-
-	fmt.Printf("Read updated config: %+v\n", cfg)
 
 }
