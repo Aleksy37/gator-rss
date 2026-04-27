@@ -26,10 +26,12 @@ func main() {
 
 	c.register("login", handlerLogin)
 	c.register("register", handlerRegister)
+	c.register("reset", handlerReset)
+
 
 	userCommand := os.Args[1]
 	userArgs := os.Args[2:]
-	if len(userArgs) < 1 {
+	if userCommand != "reset" && len(userArgs) < 1 {
 		log.Fatalf("too few arguments provided, please provide at least 1")
 	}
 	err = c.run(&s, command{userCommand, userArgs})
