@@ -27,13 +27,16 @@ func main() {
 	c.register("login", handlerLogin)
 	c.register("register", handlerRegister)
 	c.register("reset", handlerReset)
+	c.register("users", handlerListUsers)
 
+
+	if len(os.Args) <2 {
+		log.Fatalf("Usage: cli <command> [args...]")
+	}
 
 	userCommand := os.Args[1]
 	userArgs := os.Args[2:]
-	if userCommand != "reset" && len(userArgs) < 1 {
-		log.Fatalf("too few arguments provided, please provide at least 1")
-	}
+	
 	err = c.run(&s, command{userCommand, userArgs})
 	if err != nil {
 		log.Fatalf("error executing command: %v error: %v", userCommand, err)
