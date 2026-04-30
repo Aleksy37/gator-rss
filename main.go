@@ -29,6 +29,8 @@ func main() {
 	c.register("reset", handlerReset)
 	c.register("users", handlerListUsers)
 	c.register("agg", handlerAgg)
+	c.register("addfeed", handlerAddFeed)
+	c.register("feeds", handlerFeeds)
 
 
 	if len(os.Args) <2 {
