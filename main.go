@@ -24,13 +24,17 @@ func main() {
 	s := state{db : dbQueries, cfg: &cfg}
 	c := commands{cmds : make(map[string]func(*state, command) error)}
 
+
 	c.register("login", handlerLogin)
 	c.register("register", handlerRegister)
 	c.register("reset", handlerReset)
 	c.register("users", handlerListUsers)
 	c.register("agg", handlerAgg)
-	c.register("addfeed", handlerAddFeed)
+	c.register("addfeed", middlewareLoggedIn(handlerAddFeed))
 	c.register("feeds", handlerFeeds)
+	c.register("follow", middlewareLoggedIn(handlerFollow))
+	c.register("following", middlewareLoggedIn(handlerFollowing))
+	c.register("unfollow", middlewareLoggedIn(handlerUnfollow))
 
 
 	if len(os.Args) <2 {

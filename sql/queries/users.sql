@@ -20,3 +20,8 @@ DELETE FROM users;
 SELECT *
 FROM users
 ORDER BY name;
+
+-- name: GetUserByName :one
+SELECT *
+FROM users
+WHERE name = $1;
