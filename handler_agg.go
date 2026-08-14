@@ -2,14 +2,21 @@ package main
 
 import (
 	"fmt"
-	"context"
+	"time"
 )
 
 func handlerAgg(s *state, cmd command) error {
-	res, err := fetchFeed(context.Background(), "https://www.wagslane.dev/index.xml")
-	if err != nil {
-		return fmt.Errorf("error fetching rss feed: %v", err)
+	if len(cmd.args) != 1 {
+		return fmt.Errorf("please provide a duration string for scraping frequency eg. 5m15s")
 	}
-	fmt.Printf("succesfully fetched rss feed from %s : %s", "https://www.wagslane.dev/index.xml", res)
-	return nil
+
+	timeBetweenRequests, err := time.ParseDuration(cmd.args[0])
+	if err != nil {
+		return fmt.Errorf("error parsing duration string: %v", err)
+	}
+	fmt.Printf("Starting scrapper with a cooldown of %v\n", timeBetweenRequests)
+	ticker := time.NewTicker(timeBetweenRequests)
+for ; ; <-ticker.C {
+	scrapeFeeds(s)
+}
 }

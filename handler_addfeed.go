@@ -42,6 +42,6 @@ func handlerAddFeed(s *state, cmd command, user database.User) error {
 	if err != nil {
 		return fmt.Errorf("there was an issue following the feed: %w", err)
 	}
-	fmt.Printf("%s subscribed to a new feed: %s", user.Name, follow.FeedName)
+	fmt.Printf("%s subscribed to a new feed: %s\n", user.Name, follow.FeedName)
 	return nil
 }
