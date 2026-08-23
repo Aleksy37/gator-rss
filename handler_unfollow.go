@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/aleksy37/gator-rss/internal/database"
+	"github.com/Aleksy37/gator-rss/internal/database"
 )
 
 

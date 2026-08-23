@@ -7,7 +7,7 @@ import (
 	"time"
 	"database/sql"
 	"github.com/google/uuid"
-	"github.com/aleksy37/gator-rss/internal/database"
+	"github.com/Aleksy37/gator-rss/internal/database"
 	"github.com/lib/pq"
 )
 

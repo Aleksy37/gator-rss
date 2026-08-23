@@ -3,18 +3,22 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/aleksy37/gator-rss/internal/database"
+	"github.com/Aleksy37/gator-rss/internal/database"
+	"strconv"
 )
 
 
 func handlerBrowse(s *state, cmd command, user database.User) error {
 	if len(cmd.args) > 1 {
-		return fmt.Errorf("feeds only takes one optional arg for amount of results to return")
+		return fmt.Errorf("browse only takes one optional arg for amount of results to return")
 	}
-
+	i64, err := strconv.ParseInt(cmd.args[0], 10, 32)
+	if err != nil {
+		return fmt.Errorf("invalid argument for browse: %w", err)
+	}
 	posts, err := s.db.GetPostsForUser(context.Background(), database.GetPostsForUserParams{
 		UserID:	user.ID, 
-		Limit: 10,
+		Limit: int32(i64),
 	})
 	if err != nil {
 		return fmt.Errorf("there was an issue retreiving the posts: %w", err)

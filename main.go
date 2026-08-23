@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"log"
 	"os"
-	"github.com/aleksy37/gator-rss/internal/config"
-	"github.com/aleksy37/gator-rss/internal/database"
+	"github.com/Aleksy37/gator-rss/internal/config"
+	"github.com/Aleksy37/gator-rss/internal/database"
 	_ "github.com/lib/pq"
 )
 
@@ -19,7 +19,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("error opening db connection: %s", err)
 	}
+	defer db.Close()
 	dbQueries := database.New(db)
+
+
+	if err := database.RunMigrations(db); err != nil {
+		log.Fatalf("failed to migrate database: %v", err)
+	}
 
 	s := state{db : dbQueries, cfg: &cfg}
 	c := commands{cmds : make(map[string]func(*state, command) error)}
