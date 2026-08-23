@@ -22,12 +22,7 @@ func main() {
 	defer db.Close()
 	dbQueries := database.New(db)
 
-
-	if err := database.RunMigrations(db); err != nil {
-		log.Fatalf("failed to migrate database: %v", err)
-	}
-
-	s := state{db : dbQueries, cfg: &cfg}
+	s := state{db : dbQueries, rawDB: db, cfg: &cfg}
 	c := commands{cmds : make(map[string]func(*state, command) error)}
 
 
@@ -42,6 +37,7 @@ func main() {
 	c.register("following", middlewareLoggedIn(handlerFollowing))
 	c.register("unfollow", middlewareLoggedIn(handlerUnfollow))
 	c.register("browse", middlewareLoggedIn(handlerBrowse))
+	c.register("migrate", handlerMigrate)
 
 	if len(os.Args) <2 {
 		log.Fatalf("Usage: cli <command> [args...]")

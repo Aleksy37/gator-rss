@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
-
+	"database/sql"
 	"github.com/Aleksy37/gator-rss/internal/config"
 	"github.com/Aleksy37/gator-rss/internal/database"
 )
 
 type state struct {
 	db *database.Queries
+	rawDB	*sql.DB
 	cfg *config.Config
 }
 
