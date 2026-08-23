@@ -33,15 +33,15 @@ then connect to your postgres instance and create a database called gator, once 
 
 Some Commands you can run in the gator-rss CLI:
 
-**migrate**: this command only needs to be ran when you first install/update gator-rss, it creates the tables we need in our database for the program to work
-**register**: *usage: register username* create a user 
-**login**: *usage: login username* login as that user
-**reset**: Clears the user list 
-**users**: lists users
-**addfeed** *usage: addfeed name url* register a new feed and add it to the current users list of follows
-**feeds**: shows a list of tracked feeds with name and url and the user who first registered them
-**follow**: *usage: follow <url>* if a feed is already being tracked but you arent following it on the current user use this command to add it to your follow list
-**following**: shows the names of the feed the current user is following
-**unfollow**: *usage: unfollow url* stop following a feed 
-**agg**: *usage: agg interval(eg. 5m15s)* this command polls the feeds in a loop on a user specified interval and should be run in a second terminal window in the background **DO NOT DDOS THE RSS FEEDS**
-**browse** *usage: browse limit* returns the latest posts scrapped by the agg command, user specifies how many posts to return 
+-**migrate**: this command only needs to be ran when you first install/update gator-rss, it creates the tables we need in our database for the program to work
+-**register**: *usage: register username* create a user 
+-**login**: *usage: login username* login as that user
+-**reset**: Clears the user list 
+-**users**: lists users
+-**addfeed** *usage: addfeed name url* register a new feed and add it to the current users list of follows
+-**feeds**: shows a list of tracked feeds with name and url and the user who first registered them
+-**follow**: *usage: follow <url>* if a feed is already being tracked but you arent following it on the current user use this command to add it to your follow list
+_**unfollow**: *usage: unfollow url* stop following a feed 
+-**following**: shows the names of the feed the current user is following
+-**agg**: *usage: agg interval(eg. 5m15s)* this command polls the feeds in a loop on a user specified interval and should be run in a second terminal window in the background **DO NOT DDOS THE RSS FEEDS**
+-**browse** *usage: browse limit* returns the latest posts scrapped by the agg command, user specifies how many posts to return 
